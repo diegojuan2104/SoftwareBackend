@@ -8,8 +8,10 @@ app.use(express.json())
 app.use(cors())
 
 //importar las rutas con los endpoints especificos
-const rutas = require('./routes/propuestas')
-app.use(rutas)
+const rutasPropuestas = require('./routes/propuestas')
+app.use(rutasPropuestas)
+const rutasEvaluaciones = require('./routes/evaluaciones')
+app.use(rutasEvaluaciones)
 
 //puerto
 const port = 3001
