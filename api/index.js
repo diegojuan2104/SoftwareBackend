@@ -7,11 +7,9 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-//Endpoints
-app.get("/",(req,res) => {
-    res.send("Bienvenido a la Api de bookmarks")
-})
-
+//importar las rutas con los endpoints especificos
+const rutas = require('./routes/propuestas')
+app.use(rutas)
 
 //puerto
 const port = 3001
