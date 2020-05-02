@@ -6,7 +6,7 @@ const ServicioPG = require('../services/pg')
  * @param {*} info 
  */
 
-let validarIndormacion = info => {
+let validarInformacion = info => {
     if(!info.identificacion || !info.nombreEntidad || !info.ocupacionPersona || !info.nombreCompletoPersona || !info.email || !info.telefonoPersona || !info.direccionPersona || !info.tipoConvenio || !info.descripcionIniciativa || !info.estadoConvenio){
         throw {
             ok:false, 
@@ -66,4 +66,4 @@ let actualizarInformacionPropuesta = async (id, info) => {
 
 
 
-module.exports = {validarIndormacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,eliminarInformacionPropuesta,actualizarInformacionPropuesta};
+module.exports = {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,eliminarInformacionPropuesta,actualizarInformacionPropuesta};
