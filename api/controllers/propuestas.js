@@ -35,7 +35,7 @@ let guardarInformacionPropuesta = async info => {
 let obtenerInformacionPropuesta = async () => {
     let servicio = new ServicioPG()
     let sql = `SELECT idpropuesta, identificacion, nombreentidad, ocupacionpersona, nombrecompletopersona, email, telefonopersona, direccionpersona, tipoconvenio, descripcioniniciativa, posiblesbeneficios, estadoconvenio
-	FROM public.propuesta;`
+	FROM public.propuesta order by idpropuesta;`
     let respuesta = await servicio.ejecutarSQL(sql)
     return respuesta;
 }
@@ -45,7 +45,7 @@ let obtenerInformacionPropuesta = async () => {
  */
 let eliminarInformacionPropuesta = async (id) => {
     let servicio = new ServicioPG()
-    let sql = `delete from links where idpropuesta = ${id}`
+    let sql = `delete from propuesta where idpropuesta = ${id}`
     let respuesta = await servicio.ejecutarSQL(sql)
     return respuesta;
 }
@@ -58,7 +58,7 @@ let eliminarInformacionPropuesta = async (id) => {
 let actualizarInformacionPropuesta = async (id, info) => {
     let servicio = new ServicioPG()
     let sql = `UPDATE public.propuesta
-	SET identificacion=${info.identificacion}, nombreentidad=${info.nombreEntidad}, ocupacionpersona=${info.ocupacionPersona}, nombrecompletopersona=${info.nombreCompletoPersona}, email=${info.email}, telefonopersona=${info.telefonoPersona}, direccionpersona=${info.direccionPersona}, tipoconvenio=${info.tipoConvenio}, descripcioniniciativa=${info.descripcionIniciativa}, posiblesbeneficios=${info.posiblesBeneficios}, estadoconvenio=${info.estadoConvenio}
+	SET identificacion='${info.identificacion}', nombreentidad='${info.nombreEntidad}', ocupacionpersona='${info.ocupacionPersona}', nombrecompletopersona='${info.nombreCompletoPersona}', email='${info.email}', telefonopersona='${info.telefonoPersona}', direccionpersona='${info.direccionPersona}', tipoconvenio='${info.tipoConvenio}', descripcioniniciativa='${info.descripcionIniciativa}', posiblesbeneficios='${info.posiblesBeneficios}', estadoconvenio='${info.estadoConvenio}'
 	WHERE idpropuesta = ${id};`
     let respuesta = await servicio.ejecutarSQL(sql)
     return respuesta;

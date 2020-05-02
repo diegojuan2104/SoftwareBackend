@@ -27,7 +27,7 @@ router.post('/propuestas',(req,res) => {
     }
 })
 
-router.put('/propuestas:id',(req,res) => {
+router.put('/propuestas/:id',(req,res) => {
     let id = req.params.id;
     let info = req.body
     actualizarInformacionPropuesta(id,info).then(respuesta => {
@@ -37,12 +37,13 @@ router.put('/propuestas:id',(req,res) => {
     })
 })
 
-router.delete('/propuestas:id',(req,res) => {
+router.delete('/propuestas/:id',(req,res) => {
     let id = req.params.id;
     eliminarInformacionPropuesta(id).then(respuesta => {
         res.send(respuesta)
     }).catch(error => {
         res.send(error)
+        console.log(error)
     })
 })
 
