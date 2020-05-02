@@ -24,7 +24,7 @@ let guardarInformacionPropuesta = async info => {
     let servicio = new ServicioPG()
     let sql = `INSERT INTO public.propuesta(
         identificacion, nombreentidad, ocupacionpersona, nombrecompletopersona, email, telefonopersona, direccionpersona, tipoconvenio, descripcioniniciativa, posiblesbeneficios, estadoconvenio)
-        VALUES (${info.identificacion}, ${info.nombreEntidad}, ${info.ocupacionPersona}, ${info.nombreCompletoPersona}, ${info.email}, ${info.telefonoPersona}, ${info.direccionPersona},${info.tipoConvenio}, ${info.descripcionIniciativa}, ${info.posiblesBeneficios}, ${info.estadoConvenio});`
+        VALUES ('${info.identificacion}', '${info.nombreEntidad}', '${info.ocupacionPersona}', '${info.nombreCompletoPersona}', '${info.email}', '${info.telefonoPersona}', '${info.direccionPersona}','${info.tipoConvenio}', '${info.descripcionIniciativa}', '${info.posiblesBeneficios}', '${info.estadoConvenio}');`
     let respuesta = await servicio.ejecutarSQL(sql)
     return respuesta;
 }
