@@ -7,11 +7,14 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+//versiones
+const vs = "/api/v1/"
+
 //importar las rutas con los endpoints especificos
 const rutasPropuestas = require('./routes/propuestas')
-app.use(rutasPropuestas)
+app.use(vs,rutasPropuestas)
 const rutasEvaluaciones = require('./routes/evaluaciones')
-app.use(rutasEvaluaciones)
+app.use(vs,rutasEvaluaciones)
 
 //puerto
 const port = 3001
