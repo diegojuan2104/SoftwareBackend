@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,eliminarInformacionPropuesta,actualizarInformacionPropuesta} = require('../controllers/propuestas')
+const {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,obtenerInformacionEspecifica,eliminarInformacionPropuesta,actualizarInformacionPropuesta} = require('../controllers/propuestas')
 
 router.get('/',(req,res) => {
     res.send("Bienvenido a la api de gestion convenios")
@@ -13,6 +13,17 @@ router.get('/propuestas',(req,res) => {
         res.send(error)
     })
 })
+
+router.get('/propuestas/:id',(req,res) => {
+    let id = req.params.id
+    obtenerInformacionEspecifica(id).then(respuesta => {
+        res.send(respuesta.rows)
+    }).catch(error => {
+        console.log(error)
+        res.send(error)
+    })
+})
+
 
 router.post('/propuestas',(req,res) => {
     try {

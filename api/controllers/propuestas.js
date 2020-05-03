@@ -41,6 +41,17 @@ let obtenerInformacionPropuesta = async () => {
 }
 
 /**
+ * Metodo que obtiene informacion de la base de datos de una propuesta en especifico
+ */
+let obtenerInformacionEspecifica = async (id) => {
+    let servicio = new ServicioPG()
+    let sql = `SELECT idpropuesta, identificacion, nombreentidad, ocupacionpersona, nombrecompletopersona, email, telefonopersona, direccionpersona, tipoconvenio, descripcioniniciativa, posiblesbeneficios, estadoconvenio
+	FROM public.propuesta where idpropuesta = ${id};`
+    let respuesta = await servicio.ejecutarSQL(sql)
+    return respuesta;
+}
+
+/**
  * Metodo que elimina informacion de la base de datos
  */
 let eliminarInformacionPropuesta = async (id) => {
@@ -66,4 +77,4 @@ let actualizarInformacionPropuesta = async (id, info) => {
 
 
 
-module.exports = {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,eliminarInformacionPropuesta,actualizarInformacionPropuesta};
+module.exports = {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,obtenerInformacionEspecifica,eliminarInformacionPropuesta,actualizarInformacionPropuesta};
