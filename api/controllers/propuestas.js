@@ -24,8 +24,9 @@ let guardarInformacionPropuesta = async info => {
     let servicio = new ServicioPG()
     let sql = `INSERT INTO public.propuesta(
         identificacion, nombreentidad, ocupacionpersona, nombrecompletopersona, email, telefonopersona, direccionpersona, tipoconvenio, descripcioniniciativa, posiblesbeneficios, estadoconvenio)
-        VALUES ('${info.identificacion}', '${info.nombreEntidad}', '${info.ocupacionPersona}', '${info.nombreCompletoPersona}', '${info.email}', '${info.telefonoPersona}', '${info.direccionPersona}','${info.tipoConvenio}', '${info.descripcionIniciativa}', '${info.posiblesBeneficios}', '${info.estadoConvenio}');`
-    let respuesta = await servicio.ejecutarSQL(sql)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`
+        let valores = [info.identificacion,info.nombreEntidad,info.ocupacionPersona,info.nombreCompletoPersona,info.email,info.telefonoPersona,info.direccionPersona,info.tipoConvenio,info.descripcionIniciativa,info.posiblesBeneficios,info.estadoConvenio]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
 
@@ -46,8 +47,9 @@ let obtenerInformacionPropuesta = async () => {
 let obtenerInformacionEspecifica = async (id) => {
     let servicio = new ServicioPG()
     let sql = `SELECT idpropuesta, identificacion, nombreentidad, ocupacionpersona, nombrecompletopersona, email, telefonopersona, direccionpersona, tipoconvenio, descripcioniniciativa, posiblesbeneficios, estadoconvenio
-	FROM public.propuesta where idpropuesta = ${id};`
-    let respuesta = await servicio.ejecutarSQL(sql)
+    FROM public.propuesta where idpropuesta = $1;`
+    let valores = [id]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
 
@@ -56,8 +58,9 @@ let obtenerInformacionEspecifica = async (id) => {
  */
 let eliminarInformacionPropuesta = async (id) => {
     let servicio = new ServicioPG()
-    let sql = `delete from propuesta where idpropuesta = ${id}`
-    let respuesta = await servicio.ejecutarSQL(sql)
+    let sql = `delete from propuesta where idpropuesta = $1`
+    let valores = [id]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
 
@@ -69,9 +72,10 @@ let eliminarInformacionPropuesta = async (id) => {
 let actualizarInformacionPropuesta = async (id, info) => {
     let servicio = new ServicioPG()
     let sql = `UPDATE public.propuesta
-	SET identificacion='${info.identificacion}', nombreentidad='${info.nombreEntidad}', ocupacionpersona='${info.ocupacionPersona}', nombrecompletopersona='${info.nombreCompletoPersona}', email='${info.email}', telefonopersona='${info.telefonoPersona}', direccionpersona='${info.direccionPersona}', tipoconvenio='${info.tipoConvenio}', descripcioniniciativa='${info.descripcionIniciativa}', posiblesbeneficios='${info.posiblesBeneficios}', estadoconvenio='${info.estadoConvenio}'
-	WHERE idpropuesta = ${id};`
-    let respuesta = await servicio.ejecutarSQL(sql)
+	SET identificacion=$1, nombreentidad=$2, ocupacionpersona=$3, nombrecompletopersona=$4, email=$5, telefonopersona=$6, direccionpersona=$7, tipoconvenio=$8, descripcioniniciativa=$9, posiblesbeneficios=$10, estadoconvenio=$11
+    WHERE idpropuesta = $12;`
+    let valores = [info.identificacion,info.nombreEntidad,info.ocupacionPersona,info.nombreCompletoPersona,info.email,info.telefonoPersona,info.direccionPersona,info.tipoConvenio,info.descripcionIniciativa,info.posiblesBeneficios,info.estadoConvenio,id]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
 

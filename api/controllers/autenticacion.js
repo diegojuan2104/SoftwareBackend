@@ -20,8 +20,9 @@ let validarLogin = info => {
 
 let consultarPropuesta = async info => {
     let servicio = new ServicioPG()
-    let sql = `select * from usuarios where documento = '${info.documento}' and contraseña = '${info.contraseña}'`
-    let respuesta = await servicio.ejecutarSQL(sql)
+    let sql = `select * from usuarios where documento = $1 and contraseña = $2`
+    let valores = [info.documento,info.contraseña]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
 

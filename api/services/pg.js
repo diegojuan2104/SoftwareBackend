@@ -23,6 +23,11 @@ class ServicioPG{
         let respuesta = await this.pool.query(sql)
         return respuesta;
     }
+
+    async ejecutarSQL(sql,valores){
+        let respuesta = await this.pool.query(sql,valores)
+        return respuesta;
+    }
 }
 
 module.exports = ServicioPG;

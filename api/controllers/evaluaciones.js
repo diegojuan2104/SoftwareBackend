@@ -24,8 +24,9 @@ let guardarInformacionEvaluacion = async info => {
     let servicio = new ServicioPG()
     let sql = `INSERT INTO public.evaluaciones(
         fechaevaluacion,observaciones,estado,idpropuesta)
-        VALUES ('${info.fechaEvaluacion}', '${info.observaciones}', '${info.estados }', ${info.idPropuesta});`
-    let respuesta = await servicio.ejecutarSQL(sql)
+        VALUES ($1,$2, $3, $4);`
+        let valores = [info.fechaEvaluacion,info.observaciones,info.estados,info.idPropuesta]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
 
@@ -35,7 +36,7 @@ let guardarInformacionEvaluacion = async info => {
 let obtenerInformacionEvaluacion = async () => {
     let servicio = new ServicioPG()
     let sql = `SELECT idevaluacion,fechaevaluacion,observaciones,estado,idpropuesta
-	FROM public.evaluaciones order by idevaluacion;`
+    FROM public.evaluaciones order by idevaluacion;`
     let respuesta = await servicio.ejecutarSQL(sql)
     return respuesta;
 }
