@@ -10,7 +10,7 @@ class ServicioPG{
             user: "postgres",
             host: "localhost",
             database: "gestionPropuestas",
-            password: "alexyaleja",
+            password: "",
             port: 5432
         });
     }

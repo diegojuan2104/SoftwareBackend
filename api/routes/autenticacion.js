@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const {validarLogin,consultarPropuesta} = require('../controllers/autenticacion')
+const {validarLogin,consultarPropuesta,generarToken} = require('../controllers/autenticacion')
 
 router.post("/login",(req,res) => {
     try {
         validarLogin(req.body)
         consultarPropuesta(req.body).then(respuesta => {
             if(respuesta.rowCount > 0){
-                res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: {}})
+                let token = generarToken(respuesta.rows[0])
+                res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: token})
             }else{
                 res.status(400).send({ok:false, mensaje:"Usuario y/o contraseña incorrecta", info: {}})
             }
