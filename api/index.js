@@ -15,6 +15,8 @@ const rutasPropuestas = require('./routes/propuestas')
 app.use(vs,rutasPropuestas)
 const rutasEvaluaciones = require('./routes/evaluaciones')
 app.use(vs,rutasEvaluaciones)
+const rutasLogin = require('./routes/autenticacion')
+app.use(vs,rutasLogin)
 
 //puerto
 const port = 3001

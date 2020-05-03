@@ -15,4 +15,11 @@ let validarLogin = info => {
     }
 }
 
-module.exports = {validarLogin};
+let consultarPropuesta = async info => {
+    let servicio = new ServicioPG()
+    let sql = `select * from usuarios where documento = '${info.documento}' and contraseña = '${info.contraseña}'`
+    let respuesta = await servicio.ejecutarSQL(sql)
+    return respuesta;
+}
+
+module.exports = {validarLogin,consultarPropuesta};
