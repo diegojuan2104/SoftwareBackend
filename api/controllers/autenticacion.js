@@ -31,4 +31,8 @@ let generarToken = (usuario) => {
     return token;
 }
 
-module.exports = {validarLogin,consultarPropuesta,generarToken};
+let verificarToken = token => {
+    return jwt.verify(token,secret_key);
+}
+
+module.exports = {validarLogin,consultarPropuesta,generarToken,verificarToken};

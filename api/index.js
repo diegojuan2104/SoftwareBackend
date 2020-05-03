@@ -11,12 +11,14 @@ app.use(cors())
 const vs = "/api/v1/"
 
 //importar las rutas con los endpoints especificos
-const rutasPropuestas = require('./routes/propuestas')
-app.use(vs,rutasPropuestas)
-const rutasEvaluaciones = require('./routes/evaluaciones')
-app.use(vs,rutasEvaluaciones)
 const rutasLogin = require('./routes/autenticacion')
 app.use(vs,rutasLogin)
+
+const rutasPropuestas = require('./routes/propuestas')
+app.use(vs,rutasPropuestas)
+
+const rutasEvaluaciones = require('./routes/evaluaciones')
+app.use(vs,rutasEvaluaciones)
 
 //puerto
 const port = 3001

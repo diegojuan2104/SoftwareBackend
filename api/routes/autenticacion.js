@@ -1,6 +1,20 @@
 const express = require('express')
 const router = express.Router()
-const {validarLogin,consultarPropuesta,generarToken} = require('../controllers/autenticacion')
+const {validarLogin,consultarPropuesta,generarToken,verificarToken} = require('../controllers/autenticacion')
+
+//MIDDLEWARE: filtro
+router.use((req,res,next) => {
+    try {
+        let url = req.url;
+        if(url != "/login"){
+            let token = req.headers.token;
+            let verificacion = verificarToken(token)
+        }
+        next();
+    } catch (error) {
+        res.status(401).send({ok:false, mensaje:"No autenticado", info: error})
+    }
+})
 
 router.post("/login",(req,res) => {
     try {
