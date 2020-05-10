@@ -31,8 +31,11 @@ router.post('/propuestas',(req,res) => {
         //Se invoca el metodo que validara la informacion
         validarInformacion(info)
         //Se invoca el metodo que guarda la informacion en la base de datos siempre y cuando no hayan errores
-        guardarInformacionPropuesta(info)
-        res.send({ok:true, mensaje:"La informacion se guardo correctamente", info: info})
+        guardarInformacionPropuesta(info).then(respuesta => {
+            res.send({ok:true, mensaje:"La informacion se guardo correctamente", info: respuesta})
+        }).catch(error => {
+            res.send(error)
+        })
     } catch (error) {
         res.send(error)
     }
@@ -44,6 +47,7 @@ router.put('/propuestas/:id',(req,res) => {
     actualizarInformacionPropuesta(id,info).then(respuesta => {
         res.send(respuesta);
     }).catch(error => {
+        console.log(error)
         res.send(error)
     })
 })
@@ -53,8 +57,8 @@ router.delete('/propuestas/:id',(req,res) => {
     eliminarInformacionPropuesta(id).then(respuesta => {
         res.send(respuesta)
     }).catch(error => {
-        res.send(error)
         console.log(error)
+        res.send(error)
     })
 })
 

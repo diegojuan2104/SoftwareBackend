@@ -7,7 +7,7 @@ const ServicioPG = require('../services/pg')
  */
 
 let validarInformacion = info => {
-    if(!info.identificacion || !info.nombreEntidad || !info.ocupacionPersona || !info.nombreCompletoPersona || !info.email || !info.telefonoPersona || !info.direccionPersona || !info.tipoConvenio || !info.descripcionIniciativa || !info.estadoConvenio){
+    if(!info.infoContacto || !info.tipoConvenio || !info.descripcionIniciativa || !info.beneficios || !info.estado){
         throw {
             ok:false, 
             mensaje:"Todos los campos son obligatorios"
@@ -22,10 +22,9 @@ let validarInformacion = info => {
 
 let guardarInformacionPropuesta = async info => {
     let servicio = new ServicioPG()
-    let sql = `INSERT INTO public.propuesta(
-        identificacion, nombreentidad, ocupacionpersona, nombrecompletopersona, email, telefonopersona, direccionpersona, tipoconvenio, descripcioniniciativa, posiblesbeneficios, estadoconvenio)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`
-        let valores = [info.identificacion,info.nombreEntidad,info.ocupacionPersona,info.nombreCompletoPersona,info.email,info.telefonoPersona,info.direccionPersona,info.tipoConvenio,info.descripcionIniciativa,info.posiblesBeneficios,info.estadoConvenio]
+    let sql = `insert into cm_propuestas_convenios(info_contacto,tipo_convenio,descripcion_iniciativa,beneficios,estado) 
+    values($1,$2,$3,$4,$5)`
+        let valores = [info.infoContacto,info.tipoConvenio,info.descripcionIniciativa,info.beneficios,info.estado]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
@@ -35,8 +34,8 @@ let guardarInformacionPropuesta = async info => {
  */
 let obtenerInformacionPropuesta = async () => {
     let servicio = new ServicioPG()
-    let sql = `SELECT idpropuesta, identificacion, nombreentidad, ocupacionpersona, nombrecompletopersona, email, telefonopersona, direccionpersona, tipoconvenio, descripcioniniciativa, posiblesbeneficios, estadoconvenio
-	FROM public.propuesta order by idpropuesta;`
+    let sql = `SELECT info_contacto, tipo_convenio, descripcion_iniciativa, beneficios, estado
+	FROM cm_propuestas_convenios order by id;`
     let respuesta = await servicio.ejecutarSQL(sql)
     return respuesta;
 }
@@ -46,8 +45,8 @@ let obtenerInformacionPropuesta = async () => {
  */
 let obtenerInformacionEspecifica = async (id) => {
     let servicio = new ServicioPG()
-    let sql = `SELECT idpropuesta, identificacion, nombreentidad, ocupacionpersona, nombrecompletopersona, email, telefonopersona, direccionpersona, tipoconvenio, descripcioniniciativa, posiblesbeneficios, estadoconvenio
-    FROM public.propuesta where idpropuesta = $1;`
+    let sql = `SELECT info_contacto, tipo_convenio, descripcion_iniciativa, beneficios, estado
+	FROM cm_propuestas_convenios where id = $1;`
     let valores = [id]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
@@ -58,7 +57,7 @@ let obtenerInformacionEspecifica = async (id) => {
  */
 let eliminarInformacionPropuesta = async (id) => {
     let servicio = new ServicioPG()
-    let sql = `delete from propuesta where idpropuesta = $1`
+    let sql = `delete from cm_propuestas_convenios where id = $1`
     let valores = [id]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
@@ -71,10 +70,10 @@ let eliminarInformacionPropuesta = async (id) => {
  */
 let actualizarInformacionPropuesta = async (id, info) => {
     let servicio = new ServicioPG()
-    let sql = `UPDATE public.propuesta
-	SET identificacion=$1, nombreentidad=$2, ocupacionpersona=$3, nombrecompletopersona=$4, email=$5, telefonopersona=$6, direccionpersona=$7, tipoconvenio=$8, descripcioniniciativa=$9, posiblesbeneficios=$10, estadoconvenio=$11
-    WHERE idpropuesta = $12;`
-    let valores = [info.identificacion,info.nombreEntidad,info.ocupacionPersona,info.nombreCompletoPersona,info.email,info.telefonoPersona,info.direccionPersona,info.tipoConvenio,info.descripcionIniciativa,info.posiblesBeneficios,info.estadoConvenio,id]
+    let sql = `UPDATE cm_propuestas_convenios
+	SET info_contacto=$1, tipo_convenio=$2, descripcion_iniciativa=$3, beneficios=$4, estado=$5
+    WHERE id = $6;`
+    let valores = [info.infoContacto,info.tipoConvenio,info.descripcionIniciativa,info.beneficios,info.estado,id]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }

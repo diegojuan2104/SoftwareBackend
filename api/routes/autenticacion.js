@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {validarLogin,consultarPropuesta,generarToken,verificarToken} = require('../controllers/autenticacion')
+const {validarLogin,consultarUsuario,generarToken,verificarToken} = require('../controllers/autenticacion')
 
 //MIDDLEWARE: filtro
 router.use((req,res,next) => {
@@ -19,10 +19,10 @@ router.use((req,res,next) => {
 router.post("/login",(req,res) => {
     try {
         validarLogin(req.body)
-        consultarPropuesta(req.body).then(respuesta => {
+        consultarUsuario(req.body).then(respuesta => {
             if(respuesta.rowCount > 0){
                 let token = generarToken(respuesta.rows[0])
-                res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: token})
+                res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: token, idUsuario:respuesta.rows[0].id})
             }else{
                 res.status(400).send({ok:false, mensaje:"Usuario y/o contraseña incorrecta", info: {}})
             }

@@ -10,7 +10,7 @@ const secret_key = 'f0c67d58742c97def9cd77083340ca6d237de2e1cf8986c66bb4ef8ac054
  */
 
 let validarLogin = info => {
-    if(!info.documento || !info.contraseña){
+    if(!info.correo || !info.clave){
         throw {
             ok:false, 
             mensaje:"Todos los campos son obligatorios"
@@ -18,10 +18,10 @@ let validarLogin = info => {
     }
 }
 
-let consultarPropuesta = async info => {
+let consultarUsuario = async info => {
     let servicio = new ServicioPG()
-    let sql = `select * from usuarios where documento = $1 and contraseña = $2`
-    let valores = [info.documento,info.contraseña]
+    let sql = `select * from acc_usuarios where correo = $1 and clave = $2`
+    let valores = [info.correo,info.clave]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
@@ -36,4 +36,4 @@ let verificarToken = token => {
     return jwt.verify(token,secret_key);
 }
 
-module.exports = {validarLogin,consultarPropuesta,generarToken,verificarToken};
+module.exports = {validarLogin,consultarUsuario,generarToken,verificarToken};
