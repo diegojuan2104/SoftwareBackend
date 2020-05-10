@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,obtenerInformacionEspecifica,eliminarInformacionPropuesta,actualizarInformacionPropuesta} = require('../controllers/propuestas')
+const {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,obtenerInformacionEspecifica,eliminarInformacionPropuesta,actualizarInformacionPropuesta,obtenerIdPropuesta} = require('../controllers/propuestas')
 
 router.get('/',(req,res) => {
     res.send("Bienvenido a la api de gestion convenios")
@@ -32,10 +32,15 @@ router.post('/propuestas',(req,res) => {
         validarInformacion(info)
         //Se invoca el metodo que guarda la informacion en la base de datos siempre y cuando no hayan errores
         guardarInformacionPropuesta(info).then(respuesta => {
-            res.send({ok:true, mensaje:"La informacion se guardo correctamente", info: respuesta})
+            obtenerIdPropuesta().then(respuesta => {
+                res.send({ok:true, mensaje:"La informacion se guardo correctamente", info: info, id: respuesta.rows[0]})
+            }).catch(error => {
+                res.send(error)
+            })
         }).catch(error => {
             res.send(error)
         })
+       
     } catch (error) {
         res.send(error)
     }
