@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {validarInvolucrados,guardarInfoInvolucrados,obtenerIdEntidades} = require('../controllers/involucrados')
+const {validarInvolucrados,guardarInfoInvolucrados,obtenerIdEntidades,obtenerEntidadesDePropuesta} = require('../controllers/involucrados')
 
 router.post('/involucrados',(req,res) => {
     try {
@@ -18,6 +18,14 @@ router.post('/involucrados',(req,res) => {
     } catch (error) {
         res.status(400).send(error)
     }
+})
+
+router.get('/involucrados/:id',(req,res) => {
+    obtenerEntidadesDePropuesta(req.params.id).then(respuesta => {
+        res.send(respuesta.rows)
+    }).catch(error => {
+        res.send(error)
+    })
 })
 
 module.exports = router;

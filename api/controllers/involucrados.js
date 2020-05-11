@@ -40,10 +40,13 @@ let obtenerIdEntidades = async (entidad) => {
 
 let obtenerEntidadesDePropuesta = async (idPropuesta) => {
     let servicio = new ServicioPG()
-    let sql = `select id from cm_entidades where nombre = $1`
-    let valores = [entidad]
+    let sql = `select id_propuesta,cm_entidades.nombre as nombre_entidad,id_usuario,acc_usuarios.nombre as nombre_usuario,acc_usuarios.apellidos from cm_involucrados
+    inner join cm_entidades on cm_involucrados.id_entidad = cm_entidades.id 
+    inner join acc_usuarios on cm_involucrados.id_usuario = acc_usuarios.id
+    where id_propuesta = $1`
+    let valores = [idPropuesta]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
 
-module.exports = {validarInvolucrados,guardarInfoInvolucrados,obtenerIdEntidades}
+module.exports = {validarInvolucrados,guardarInfoInvolucrados,obtenerIdEntidades,obtenerEntidadesDePropuesta}
