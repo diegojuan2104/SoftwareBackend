@@ -34,7 +34,7 @@ let guardarInformacionPropuesta = async info => {
  */
 let obtenerInformacionPropuesta = async () => {
     let servicio = new ServicioPG()
-    let sql = `SELECT info_contacto, tipo_convenio, descripcion_iniciativa, beneficios, estado
+    let sql = `SELECT id,info_contacto, tipo_convenio, descripcion_iniciativa, beneficios, estado
 	FROM cm_propuestas_convenios order by id;`
     let respuesta = await servicio.ejecutarSQL(sql)
     return respuesta;
