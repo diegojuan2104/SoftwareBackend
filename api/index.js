@@ -26,6 +26,9 @@ app.use(vs,rutasInvolucrados)
 const rutasEntidades = require('./routes/entidades')
 app.use(vs,rutasEntidades)
 
+const rutasTareas = require('./routes/tareas')
+app.use(vs,rutasTareas)
+
 //puerto
 const port = 3001
 
