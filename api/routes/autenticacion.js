@@ -22,7 +22,7 @@ router.post("/login",(req,res) => {
         consultarUsuario(req.body).then(respuesta => {
             if(respuesta.rowCount > 0){
                 let token = generarToken(respuesta.rows[0])
-                res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: token, idUsuario:respuesta.rows[0].id})
+                res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: token, usuario:{id:respuesta.rows[0].id,rol:respuesta.rows[0].rol}})
             }else{
                 res.status(400).send({ok:false, mensaje:"Usuario y/o contraseña incorrecta", info: {}})
             }
