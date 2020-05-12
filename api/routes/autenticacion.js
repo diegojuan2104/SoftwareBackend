@@ -35,7 +35,7 @@ router.post("/login",(req,res) => {
 })
 
 router.get('/autenticacion',(req,res) => {
-    res.send('Autenticado')
+    res.status(200).send({ok:true, mensaje:"Autenticado"})
 })
 
 module.exports = router;
