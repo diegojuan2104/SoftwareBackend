@@ -21,7 +21,7 @@ let validarLogin = info => {
 let consultarUsuario = async info => {
     let servicio = new ServicioPG()
     let sql = `select * from acc_usuarios where correo = $1 and clave = md5($2)`
-    let valores = [info.correo,info.clave]
+    let valores = [info.correo.toLowerCase(),info.clave]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
