@@ -34,4 +34,8 @@ router.post("/login",(req,res) => {
     }
 })
 
+router.get('/autenticacion',(req,res) => {
+    res.send('Autenticado')
+})
+
 module.exports = router;
