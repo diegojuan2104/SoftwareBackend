@@ -1,11 +1,15 @@
 //importar librerias
 const express = require('express')
 const cors = require('cors')
+const fileupload = require('express-fileupload')
 
 //inicializar la libreria
 const app = express()
 app.use(express.json())
 app.use(cors())
+app.use(fileupload({
+    useTempFiles: true,
+}))
 
 //versiones
 const vs = "/api/v1/"

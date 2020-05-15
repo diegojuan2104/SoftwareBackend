@@ -7,7 +7,7 @@ const ServicioPG = require('../services/pg')
  */
 
 let validarInformacion = info => {
-    if(!info.idTarea || !info.fecha || !info.comentario || !info.estado || !info.archivo || !info.idPropuesta){
+    if(!info.idTarea || !info.fecha || !info.comentario || !info.estado || !info.idPropuesta){
         throw {
             ok:false, 
             mensaje:"Todos los campos son obligatorios"
@@ -20,10 +20,10 @@ let validarInformacion = info => {
  * @param {*} info 
  */
 
-let guardarInformacionEvaluacion = async info => {
+let guardarInformacionEvaluacion = async (info,archivo) => {
     let servicio = new ServicioPG()
     let sql = `insert into cm_seguimientos_propuestas(id_tarea,fecha,comentario,estado,archivo,id_propuesta) values($1,$2,$3,$4,$5,$6)`
-    let valores = [info.idTarea,info.fecha,info.comentario,info.estado,info.archivo,info.idPropuesta]
+    let valores = [info.idTarea,info.fecha,info.comentario,info.estado,archivo,info.idPropuesta]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
@@ -38,7 +38,6 @@ let obtenerInformacionEvaluacion = async () => {
     let respuesta = await servicio.ejecutarSQL(sql)
     return respuesta;
 }
-
 
 
 
