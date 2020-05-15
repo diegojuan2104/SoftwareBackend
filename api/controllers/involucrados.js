@@ -30,13 +30,14 @@ let guardarInfoInvolucrados = async (info,entidad) => {
     return respuesta;
 }
 
+/*
 let obtenerIdEntidades = async (entidad) => {
     let servicio = new ServicioPG()
     let sql = `select id from cm_entidades where nombre = $1`
     let valores = [entidad]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
-}
+}*/
 
 let obtenerEntidadesDePropuesta = async (idPropuesta) => {
     let servicio = new ServicioPG()
@@ -49,4 +50,4 @@ let obtenerEntidadesDePropuesta = async (idPropuesta) => {
     return respuesta;
 }
 
-module.exports = {validarInvolucrados,guardarInfoInvolucrados,obtenerIdEntidades,obtenerEntidadesDePropuesta}
+module.exports = {validarInvolucrados,guardarInfoInvolucrados,obtenerEntidadesDePropuesta}

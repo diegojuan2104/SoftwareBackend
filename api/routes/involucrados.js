@@ -1,17 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const {validarInvolucrados,guardarInfoInvolucrados,obtenerIdEntidades,obtenerEntidadesDePropuesta} = require('../controllers/involucrados')
+const {validarInvolucrados,guardarInfoInvolucrados,obtenerEntidadesDePropuesta} = require('../controllers/involucrados')
 
 router.post('/involucrados',(req,res) => {
     try {
         let info = req.body
         validarInvolucrados(info)
         info.entidades.forEach(element => {
-            obtenerIdEntidades(element).then(respuesta => {
-                guardarInfoInvolucrados(info,respuesta.rows[0].id)
-            }).catch(error => {
-                res.send(error)
-            })
+            guardarInfoInvolucrados(info,element)
         });
         res.send("Se guardo")
         
