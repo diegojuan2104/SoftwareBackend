@@ -39,7 +39,7 @@ let obtenerIdEntidades = async (entidad) => {
     return respuesta;
 }*/
 
-let obtenerEntidadesDePropuesta = async (idPropuesta) => {
+let obtenerEntidadesDePropuesta = async idPropuesta => {
     let servicio = new ServicioPG()
     let sql = `select id_propuesta,cm_entidades.nombre as nombre_entidad,id_usuario,acc_usuarios.nombre as nombre_usuario,acc_usuarios.apellidos from cm_involucrados
     inner join cm_entidades on cm_involucrados.id_entidad = cm_entidades.id 
@@ -50,4 +50,12 @@ let obtenerEntidadesDePropuesta = async (idPropuesta) => {
     return respuesta;
 }
 
-module.exports = {validarInvolucrados,guardarInfoInvolucrados,obtenerEntidadesDePropuesta}
+let eliminarInvolucrados = async id => {
+    let servicio = new ServicioPG()
+    let sql = `delete from cm_involucrados where id_propuesta = $1`
+    let valores = [id]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
+    return respuesta;
+}
+
+module.exports = {validarInvolucrados,guardarInfoInvolucrados,obtenerEntidadesDePropuesta,eliminarInvolucrados}

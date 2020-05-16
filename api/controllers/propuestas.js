@@ -87,6 +87,15 @@ let actualizarInformacionPropuesta = async (id, info) => {
     return respuesta;
 }
 
+let obtenerPropuestasDeUsuario = async id => {
+    let servicio = new ServicioPG()
+    let sql = `select distinct id_propuesta,cm_propuestas_convenios.id,info_contacto,tipo_convenio,descripcion_iniciativa,beneficios,estado,id_usuario from cm_involucrados
+    inner join cm_propuestas_convenios on cm_involucrados.id_propuesta = cm_propuestas_convenios.id where id_usuario = $1`
+    let valores = [id]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
+    return respuesta;
+}
 
 
-module.exports = {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,obtenerInformacionEspecifica,eliminarInformacionPropuesta,actualizarInformacionPropuesta,obtenerIdPropuesta};
+
+module.exports = {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,obtenerInformacionEspecifica,eliminarInformacionPropuesta,actualizarInformacionPropuesta,obtenerIdPropuesta,obtenerPropuestasDeUsuario};
