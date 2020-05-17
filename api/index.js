@@ -2,6 +2,7 @@
 const express = require('express')
 const cors = require('cors')
 const fileupload = require('express-fileupload')
+require("./server/keys")
 
 //inicializar la libreria
 const app = express()
@@ -34,7 +35,7 @@ const rutasTareas = require('./routes/tareas')
 app.use(vs,rutasTareas)
 
 //puerto
-const port = 3001
+const port = process.env.PORT_NODE
 
 //Levantar el servidor para escuchar los puertos
 app.listen(port,() => {
