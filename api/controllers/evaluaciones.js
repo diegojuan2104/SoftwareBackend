@@ -39,6 +39,20 @@ let obtenerInformacionEvaluacion = async () => {
     return respuesta;
 }
 
+/**
+ * Metodo que actualiza informacion de la base de datos
+ * @param {*} id 
+ * @param {*} info 
+ */
+let actualizarEstadoPropuesta = async (id, estado) => {
+    let servicio = new ServicioPG()
+    let sql = `UPDATE cm_propuestas_convenios
+	SET estado=$1 WHERE id = $2;`
+    let valores = [estado,id]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
+    return respuesta;
+}
 
 
-module.exports = {validarInformacion,guardarInformacionEvaluacion,obtenerInformacionEvaluacion};
+
+module.exports = {validarInformacion,guardarInformacionEvaluacion,obtenerInformacionEvaluacion,actualizarEstadoPropuesta};

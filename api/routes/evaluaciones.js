@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const base64 = require('base64topdf')
-const {validarInformacion,guardarInformacionEvaluacion,obtenerInformacionEvaluacion} = require('../controllers/evaluaciones')
+const {validarInformacion,guardarInformacionEvaluacion,obtenerInformacionEvaluacion,actualizarEstadoPropuesta} = require('../controllers/evaluaciones')
 
 router.get('/evaluaciones',(req,res) => {
     obtenerInformacionEvaluacion().then(respuesta => {
@@ -33,6 +33,18 @@ router.post('/evaluaciones',(req,res) => {
         res.send(error)
     }
 })
+
+router.put('/evaluaciones/:id',(req,res) => {
+    let id = req.params.id
+    let estado = req.body.estado
+    actualizarEstadoPropuesta(id,estado).then(respuesta => {
+        res.send(respuesta);
+    }).catch(error => {
+        res.send(error)
+    })
+})
+
+
 
 
 module.exports = router;
