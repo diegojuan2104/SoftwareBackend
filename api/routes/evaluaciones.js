@@ -15,11 +15,17 @@ router.get('/evaluaciones',(req,res) => {
 router.post('/evaluaciones',(req,res) => {
     try {
         let info = req.body
-        let archivo = req.files.archivo
+        let archivo = ""
+        let archivoConvertido = ""
         //Se invoca el metodo que validara la informacion
         validarInformacion(info)
-        //Se convierte el archivo a base64
-        let archivoConvertido = base64.base64Encode(archivo.tempFilePath)
+        try {
+            archivo = req.files.archivo;
+            //Se convierte el archivo a base64
+            archivoConvertido = base64.base64Encode(archivo.tempFilePath);
+        } catch (error) {
+            //La variable queda vacia
+        }
         //Se invoca el metodo que guarda la informacion en la base de datos siempre y cuando no hayan errores
         guardarInformacionEvaluacion(info,archivoConvertido)
         res.send({ok:true, mensaje:"La informacion se guardo correctamente", info: info})
