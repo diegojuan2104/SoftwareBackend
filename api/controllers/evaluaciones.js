@@ -46,7 +46,7 @@ let obtenerTareasDePropuesta = async (idPropuesta) => {
     let servicio = new ServicioPG()
     let sql = `select id_tarea,fecha,comentario,estado as estado_tarea,archivo,id_propuesta,nombre as nombre_tarea from cm_seguimientos_propuestas
     inner join cm_tareas on cm_seguimientos_propuestas.id_tarea = cm_tareas.id
-    where id_propuesta = $1`
+    where id_propuesta = $1 order by id_tarea`
     let valores = [idPropuesta]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
