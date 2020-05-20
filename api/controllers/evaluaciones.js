@@ -40,6 +40,19 @@ let obtenerInformacionEvaluacion = async () => {
 }
 
 /**
+ * Metodo que obtiene las tareas de una propuesta
+ */
+let obtenerTareasDePropuesta = async (idPropuesta) => {
+    let servicio = new ServicioPG()
+    let sql = `select id_tarea,fecha,comentario,estado as estado_tarea,archivo,id_propuesta,nombre as nombre_tarea from cm_seguimientos_propuestas
+    inner join cm_tareas on cm_seguimientos_propuestas.id_tarea = cm_tareas.id
+    where id_propuesta = $1`
+    let valores = [idPropuesta]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
+    return respuesta;
+}
+
+/**
  * Metodo que actualiza informacion de la base de datos
  * @param {*} id 
  * @param {*} info 
@@ -55,4 +68,4 @@ let actualizarEstadoPropuesta = async (id, estado) => {
 
 
 
-module.exports = {validarInformacion,guardarInformacionEvaluacion,obtenerInformacionEvaluacion,actualizarEstadoPropuesta};
+module.exports = {validarInformacion,guardarInformacionEvaluacion,obtenerInformacionEvaluacion,actualizarEstadoPropuesta,obtenerTareasDePropuesta};
