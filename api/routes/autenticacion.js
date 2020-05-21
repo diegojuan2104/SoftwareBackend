@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {validarLogin,consultarUsuario,generarToken,verificarToken,desencriptarToken} = require('../controllers/autenticacion')
+const {validarLogin,consultarUsuarioIdentificacion,consultarUsuarioCorreo,generarToken,verificarToken,desencriptarToken} = require('../controllers/autenticacion')
 
 //MIDDLEWARE: filtro
 router.use((req,res,next) => {
@@ -19,16 +19,30 @@ router.use((req,res,next) => {
 router.post("/login",(req,res) => {
     try {
         validarLogin(req.body)
-        consultarUsuario(req.body).then(respuesta => {
-            if(respuesta.rowCount > 0){
-                let token = generarToken(respuesta.rows[0])
-                res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: token, usuario:{id:respuesta.rows[0].id,rol:respuesta.rows[0].rol}})
-            }else{
-                res.status(400).send({ok:false, mensaje:"Usuario y/o contraseña incorrecta", info: {}})
-            }
-        }).catch(error => {
-            res.status(500).send(error);
-        })
+        if(req.body.correo.indexOf('@') === -1){
+            consultarUsuarioIdentificacion(req.body).then(respuesta => {
+                if(respuesta.rowCount > 0){
+                    let token = generarToken(respuesta.rows[0])
+                    res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: token, usuario:{id:respuesta.rows[0].id,rol:respuesta.rows[0].rol}})
+                }else{
+                    res.status(400).send({ok:false, mensaje:"Usuario y/o contraseña incorrecta", info: {}})
+                }
+            }).catch(error => {
+                res.status(500).send(error);
+            })
+        }else{
+            consultarUsuarioCorreo(req.body).then(respuesta => {
+                if(respuesta.rowCount > 0){
+                    let token = generarToken(respuesta.rows[0])
+                    res.status(200).send({ok:true, mensaje:"Usuario Autenticado", info: token, usuario:{id:respuesta.rows[0].id,rol:respuesta.rows[0].rol}})
+                }else{
+                    res.status(400).send({ok:false, mensaje:"Usuario y/o contraseña incorrecta", info: {}})
+                }
+            }).catch(error => {
+                res.status(500).send(error);
+            })
+        }
+        
     } catch (error) {
         res.status(400).send(error)
     }

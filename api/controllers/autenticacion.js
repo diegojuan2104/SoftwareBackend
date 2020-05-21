@@ -18,10 +18,18 @@ let validarLogin = info => {
     }
 }
 
-let consultarUsuario = async info => {
+let consultarUsuarioCorreo = async info => {
     let servicio = new ServicioPG()
     let sql = `select * from acc_usuarios where correo = $1 and clave = md5($2)`
     let valores = [info.correo.toLowerCase(),info.clave]
+    let respuesta = await servicio.ejecutarSQL(sql,valores)
+    return respuesta;
+}
+
+let consultarUsuarioIdentificacion = async info => {
+    let servicio = new ServicioPG()
+    let sql = `select * from acc_usuarios where id = $1 and clave = md5($2)`
+    let valores = [info.correo,info.clave]
     let respuesta = await servicio.ejecutarSQL(sql,valores)
     return respuesta;
 }
@@ -40,4 +48,4 @@ let desencriptarToken = token => {
     return jwt.decode(token);
 }
 
-module.exports = {validarLogin,consultarUsuario,generarToken,verificarToken,desencriptarToken};
+module.exports = {validarLogin,consultarUsuarioIdentificacion,consultarUsuarioCorreo,generarToken,verificarToken,desencriptarToken};
