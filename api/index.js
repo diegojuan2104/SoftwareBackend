@@ -34,6 +34,9 @@ app.use(vs,rutasEntidades)
 const rutasTareas = require('./routes/tareas')
 app.use(vs,rutasTareas)
 
+const rutasCorreos = require('./routes/correos')
+app.use(vs,rutasCorreos)
+
 //puerto
 const port = process.env.PORT_NODE
 
