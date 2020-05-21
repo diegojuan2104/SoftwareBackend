@@ -38,7 +38,7 @@ const rutasCorreos = require('./routes/correos')
 app.use(vs,rutasCorreos)
 
 //puerto
-const port = process.env.PORT_NODE
+const port = process.env.PORT || 3001
 
 //Levantar el servidor para escuchar los puertos
 app.listen(port,() => {
