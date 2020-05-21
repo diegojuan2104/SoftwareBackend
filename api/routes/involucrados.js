@@ -1,7 +1,11 @@
+//importar librerias
 const express = require('express')
 const router = express.Router()
 const {validarInvolucrados,guardarInfoInvolucrados,obtenerEntidadesDePropuesta,eliminarInvolucrados} = require('../controllers/involucrados')
 
+/**
+ * Endpoint que envia la informacion de involucrados
+ */
 router.post('/involucrados',(req,res) => {
     try {
         let info = req.body
@@ -16,6 +20,9 @@ router.post('/involucrados',(req,res) => {
     }
 })
 
+/**
+ * Endpoint que obtiene las entidades de una propuesta
+ */
 router.get('/involucrados/:id',(req,res) => {
     obtenerEntidadesDePropuesta(req.params.id).then(respuesta => {
         res.send(respuesta.rows)
@@ -24,6 +31,9 @@ router.get('/involucrados/:id',(req,res) => {
     })
 })
 
+/**
+ * Endpoint que elimina los involucrados de una propuesta
+ */
 router.delete('/involucrados/:id',(req,res) => {
     eliminarInvolucrados(req.params.id).then(respuesta => {
         res.send(respuesta)

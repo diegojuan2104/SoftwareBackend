@@ -1,11 +1,18 @@
+//importar librerias
 const express = require('express')
 const router = express.Router()
 const {validarInformacion,guardarInformacionPropuesta,obtenerInformacionPropuesta,obtenerInformacionEspecifica,eliminarInformacionPropuesta,actualizarInformacionPropuesta,obtenerIdPropuesta,obtenerPropuestasDeUsuario} = require('../controllers/propuestas')
 
+/**
+ * Endpoint default
+ */
 router.get('/',(req,res) => {
     res.send("Bienvenido a la api de gestion convenios")
 })
 
+/**
+ * Endpoint que obtiene las propuestas
+ */
 router.get('/propuestas',(req,res) => {
     obtenerInformacionPropuesta().then(respuesta => {
         res.send(respuesta.rows)
@@ -14,6 +21,9 @@ router.get('/propuestas',(req,res) => {
     })
 })
 
+/**
+ * Endpoint que obtiene una propuesta en especifico
+ */
 router.get('/propuestas/:id',(req,res) => {
     let id = req.params.id
     obtenerInformacionEspecifica(id).then(respuesta => {
@@ -24,6 +34,9 @@ router.get('/propuestas/:id',(req,res) => {
     })
 })
 
+/**
+ * Endpoint que obtiene las propuestas de un usuario
+ */
 router.get('/propuestasUsuarios/:idUsuario',(req,res) => {
     let id = req.params.idUsuario
     obtenerPropuestasDeUsuario(id).then(respuesta => {
@@ -34,9 +47,9 @@ router.get('/propuestasUsuarios/:idUsuario',(req,res) => {
     })
 })
 
-
-
-
+/**
+ * Endpoint que envia la informacion de una propuesta
+ */
 router.post('/propuestas',(req,res) => {
     try {
         let info = req.body
@@ -58,6 +71,9 @@ router.post('/propuestas',(req,res) => {
     }
 })
 
+/**
+ * Endpoint que actualiza una propuesta
+ */
 router.put('/propuestas/:id',(req,res) => {
     let id = req.params.id;
     let info = req.body
@@ -69,6 +85,9 @@ router.put('/propuestas/:id',(req,res) => {
     })
 })
 
+/**
+ * Endpoint que elimina una propuesta
+ */
 router.delete('/propuestas/:id',(req,res) => {
     let id = req.params.id;
     eliminarInformacionPropuesta(id).then(respuesta => {

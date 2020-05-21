@@ -1,3 +1,4 @@
+//variables de entorno
 process.env.USERDB = "dllo_web_udem"
 process.env.HOSTDB = "saurmo.com"
 process.env.DB = "udem"

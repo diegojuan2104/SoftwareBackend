@@ -40,6 +40,9 @@ let obtenerInformacionPropuesta = async () => {
     return respuesta;
 }
 
+/**
+ * Metodo que obtiene el id de una propuesta de la base de datos 
+ */
 let obtenerIdPropuesta = async () => {
     let servicio = new ServicioPG()
     let sql = `SELECT id
@@ -87,6 +90,10 @@ let actualizarInformacionPropuesta = async (id, info) => {
     return respuesta;
 }
 
+/**
+ * Metodo que obtiene las propuestas de un usuarios en especifico de la base de datos
+ * @param {*} id 
+ */
 let obtenerPropuestasDeUsuario = async id => {
     let servicio = new ServicioPG()
     let sql = `select distinct id_propuesta,cm_propuestas_convenios.id,info_contacto,tipo_convenio,descripcion_iniciativa,beneficios,estado,id_usuario from cm_involucrados

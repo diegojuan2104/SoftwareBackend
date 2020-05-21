@@ -39,6 +39,10 @@ let obtenerIdEntidades = async (entidad) => {
     return respuesta;
 }*/
 
+/**
+ * Metodo que obtiene las entidades de una propuesta de la base de datos
+ * @param {*} idPropuesta 
+ */
 let obtenerEntidadesDePropuesta = async idPropuesta => {
     let servicio = new ServicioPG()
     let sql = `select id_propuesta,id_entidad,cm_entidades.nombre as nombre_entidad,id_usuario,acc_usuarios.nombre as nombre_usuario,acc_usuarios.apellidos,acc_usuarios.correo,acc_usuarios.ciudad,acc_usuarios.ocupacion,acc_usuarios.descripcion as descripcion_usuario from cm_involucrados
@@ -50,6 +54,10 @@ let obtenerEntidadesDePropuesta = async idPropuesta => {
     return respuesta;
 }
 
+/**
+ * Metodo que elimina involucrados de la base de datos
+ * @param {*} id 
+ */
 let eliminarInvolucrados = async id => {
     let servicio = new ServicioPG()
     let sql = `delete from cm_involucrados where id_propuesta = $1`

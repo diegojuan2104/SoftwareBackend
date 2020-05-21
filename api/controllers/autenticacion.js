@@ -18,6 +18,10 @@ let validarLogin = info => {
     }
 }
 
+/**
+ * Metodo que verifica el correo y la clave en la base de datos 
+ * @param {*} info 
+ */
 let consultarUsuarioCorreo = async info => {
     let servicio = new ServicioPG()
     let sql = `select * from acc_usuarios where correo = $1 and clave = md5($2)`
@@ -26,6 +30,10 @@ let consultarUsuarioCorreo = async info => {
     return respuesta;
 }
 
+/**
+ * Metodo que verifica la indentificacion y la clave en la base de datos
+ * @param {*} info 
+ */
 let consultarUsuarioIdentificacion = async info => {
     let servicio = new ServicioPG()
     let sql = `select * from acc_usuarios where id = $1 and clave = md5($2)`
@@ -34,16 +42,28 @@ let consultarUsuarioIdentificacion = async info => {
     return respuesta;
 }
 
+/**
+ * Metodo que genera el token 
+ * @param {*} usuario 
+ */
 let generarToken = (usuario) => {
     delete usuario.contraseña;
     let token = jwt.sign(usuario,secret_key)
     return token;
 }
 
+/**
+ * Metodo que verifica el token
+ * @param {*} token 
+ */
 let verificarToken = token => {
     return jwt.verify(token,secret_key);
 }
 
+/**
+ * Metodo que desencripta el token
+ * @param {} token 
+ */
 let desencriptarToken = token => {
     return jwt.decode(token);
 }

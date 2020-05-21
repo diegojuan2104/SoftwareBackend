@@ -16,7 +16,7 @@ let validarInformacion = info => {
 }
 
 /**
- * Metodo que guarda en la base de datos la informacion
+ * Metodo que guarda en la base de datos la informacion de evaluacion
  * @param {*} info 
  */
 
@@ -29,7 +29,7 @@ let guardarInformacionEvaluacion = async (info,archivo) => {
 }
 
 /**
- * Metodo que obtiene informacion de la base de datos
+ * Metodo que obtiene informacion de la base de datos de las evaluaciones
  */
 let obtenerInformacionEvaluacion = async () => {
     let servicio = new ServicioPG()
@@ -40,7 +40,7 @@ let obtenerInformacionEvaluacion = async () => {
 }
 
 /**
- * Metodo que obtiene las tareas de una propuesta
+ * Metodo que obtiene las tareas de una propuesta de la base de datos
  */
 let obtenerTareasDePropuesta = async (idPropuesta) => {
     let servicio = new ServicioPG()
