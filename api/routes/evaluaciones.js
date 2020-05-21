@@ -1,8 +1,12 @@
+//importar librerias
 const express = require('express')
 const router = express.Router()
 const base64 = require('base64topdf')
 const {validarInformacion,guardarInformacionEvaluacion,obtenerInformacionEvaluacion,actualizarEstadoPropuesta,obtenerTareasDePropuesta} = require('../controllers/evaluaciones')
 
+/**
+ * Endpoint que obtiene todas las evaluaciones
+ */
 router.get('/evaluaciones',(req,res) => {
     obtenerInformacionEvaluacion().then(respuesta => {
         res.send(respuesta.rows)
@@ -12,6 +16,9 @@ router.get('/evaluaciones',(req,res) => {
     })
 })
 
+/**
+ * Endpoint que obtiene las tareas de una propuestas en especifico
+ */
 router.get('/evaluaciones/:id',(req,res) => {
     let id = req.params.id
     obtenerTareasDePropuesta(id).then(respuesta => {
@@ -22,6 +29,9 @@ router.get('/evaluaciones/:id',(req,res) => {
     })
 })
 
+/**
+ * Endpoint que guarda la evaluacion de una propuesta
+ */
 router.post('/evaluaciones',(req,res) => {
     try {
         let info = req.body
@@ -44,6 +54,9 @@ router.post('/evaluaciones',(req,res) => {
     }
 })
 
+/**
+ * Endpoint que actualiza el estado de una propuesta al ser calificada
+ */
 router.put('/evaluaciones/:id',(req,res) => {
     let id = req.params.id
     let estado = req.body.estado

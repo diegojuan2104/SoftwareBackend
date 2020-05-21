@@ -36,4 +36,8 @@ let verificarToken = token => {
     return jwt.verify(token,secret_key);
 }
 
-module.exports = {validarLogin,consultarUsuario,generarToken,verificarToken};
+let desencriptarToken = token => {
+    return jwt.decode(token);
+}
+
+module.exports = {validarLogin,consultarUsuario,generarToken,verificarToken,desencriptarToken};

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {validarLogin,consultarUsuario,generarToken,verificarToken} = require('../controllers/autenticacion')
+const {validarLogin,consultarUsuario,generarToken,verificarToken,desencriptarToken} = require('../controllers/autenticacion')
 
 //MIDDLEWARE: filtro
 router.use((req,res,next) => {
@@ -36,6 +36,11 @@ router.post("/login",(req,res) => {
 
 router.get('/autenticacion',(req,res) => {
     res.status(200).send({ok:true, mensaje:"Autenticado"})
+})
+
+router.get('/autenticacion/:token',(req,res) => {
+    let token = req.params.token
+    res.send(desencriptarToken(token));
 })
 
 module.exports = router;
