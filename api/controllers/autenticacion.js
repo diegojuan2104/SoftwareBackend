@@ -2,7 +2,7 @@
 const ServicioPG = require('../services/pg')
 const jwt = require('jsonwebtoken')
 
-const secret_key = 'f0c67d58742c97def9cd77083340ca6d237de2e1cf8986c66bb4ef8ac0540ff787051ae0bf31868cfebfe378eb37ff53399408250f081812a56d0010b3b5eef4'
+const secret_key = process.env.SECRET_KEY;
 
 /**
  * Validar informacion que se quiere insertar
